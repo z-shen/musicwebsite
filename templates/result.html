@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content%}
+<h1>{{search}}</h1>
+{% for item in range(0,21)%}
+{% if  '{}'.format(item) in all_item %}
+<P>{{all_item.get('{}'.format(item))['title']}}</P>
+<P>{{all_item.get('{}'.format(item))['link']}}</P>
+<P>{{all_item.get('{}'.format(item))['image']}}</P>
+<P>{{all_item.get('{}'.format(item))['time']}}</P>
+<P>------------------------------------------------------</P>>
+{%endif%}
+{%endfor%}
+ {%endblock%}
