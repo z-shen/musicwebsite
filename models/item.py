@@ -19,7 +19,7 @@ def find_vedeo(soup,i=1):
     for element in soup.find_all('a', {"rel": "spf-prefetch"}):
         video_title = element.get('title')
         link = element.get('href').split('=')[1]
-        print(link)
+      #  print(link)
         images = soup.find_all('img', {'alt': True, 'onload': True, 'src': True, 'width': True, 'height': True,'data-ytimg': True})
         image = str(re.findall('https://i.ytimg.com/vi/{}/[\S]+'.format(link), str(images))).strip('[\']')
      #   print(image)
@@ -53,7 +53,7 @@ def page_bar(soup):
     return page_list
 
 def download_mp3(url):
-
+    print('the mp3 url is {}'.format(url))
     # ydl_ops = {'outtmpl': '/video/%(title)s.%(ext)s'}
     ydl_ops = {'format': 'bestaudio/best',
                'postprocessors': [{
@@ -65,7 +65,8 @@ def download_mp3(url):
         ydl.download([url])
 
 def download_mp4(url):
-    ydl_ops = {}
+    print('the mp4 url is {}'.format(url))
+    ydl_ops = {'format': 'best'}
     with youtube_dl.YoutubeDL(ydl_ops) as ydl:
         ydl.download([url])
 

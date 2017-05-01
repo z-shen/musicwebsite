@@ -1,5 +1,6 @@
 from flask import Flask,render_template,request
 from models import item
+from urllib import  parse
 
 app = Flask(__name__)
 
@@ -14,8 +15,21 @@ def result_page():
     search = request.args.get("search")
     soup = item.find_search_content(search)
     all_item = item.every_video(soup)
-    print(all_item)
+    #print(all_item)
     return render_template("result.html",search=search,all_item=all_item)
 
+@app.route("/download")
+def download():
+    value = request.args.get("value")
+    value = parse.unquote(value)
+   # print(value)
+    download_type,url = str(value).split("&")
+    #print(url)
+    if download_type == 'MP3':
+        item.download_mp3(url)
+        return render_template("download.html")
+    elif download_type == 'MP4':
+        item.download_mp4(url)
+        return render_template("download.html")
 if __name__ == "__main__":
     app.run(debug=True)

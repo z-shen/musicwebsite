@@ -9,8 +9,18 @@
          <a href="{{all_item.get('{}'.format(item))['link']}}" ><h4 class="card-title">{{all_item.get('{}'.format(item))['title']}}</h4></a>
     </div>
     <div class="card-block">
-        <a href="{{all_item.get('{}'.format(item))['link']}}" ><img class="card-img-top" src="{{all_item.get('{}'.format(item))['image']}}" alt="Card image cap"></a>   
+        <a href="{{all_item.get('{}'.format(item))['link']}}" ><img class="card-img-top" src="{{all_item.get('{}'.format(item))['image']}}" alt="Card image cap" width="196" height="110"></a>
         <p class="card-text"><small class="text-muted">Time Length : {{all_item.get('{}'.format(item))['time']}}</small></p>
+
+         <form action="/download" target="_blank">
+
+<button type="submit" class="btn btn-warning" name="value" value="MP3&{{all_item.get('{}'.format(item))['link']}}">MP3</button>
+
+<button type="submit" class="btn btn-danger" name="value" value="MP4&{{all_item.get('{}'.format(item))['link']}}">MP4</button>
+     </form>
+
+
+
   </div>
 </div>
 {%endif%}
