@@ -1,6 +1,6 @@
 from flask import Flask,render_template,request
 from models import item
-from urllib import  parse
+
 
 app = Flask(__name__)
 
@@ -21,10 +21,8 @@ def result_page():
 @app.route("/download")
 def download():
     value = request.args.get("value")
-    value = parse.unquote(value)
-   # print(value)
     download_type,url = str(value).split("&")
-    #print(url)
+
     if download_type == 'MP3':
         item.download_mp3(url)
         return render_template("download.html")
