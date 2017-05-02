@@ -13,6 +13,15 @@ def find_search_content(search):
     soup = BeautifulSoup(content, "html.parser")
     return soup
 
+def find_page_content(search):
+    url = "https://www.youtube.com/results?"+search
+
+    #print('the get url is {}'.format(url))
+    request = requests.get(url)
+    content = request.content
+    soup = BeautifulSoup(content, "html.parser")
+    return soup
+
 def find_vedeo(soup,i=1):
     url_link = "https://www.youtube.com/watch?v="
     all_item = {}
