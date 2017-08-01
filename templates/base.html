@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+    <link rel="icon" href="">
 
-    <title>Top navbar example for Bootstrap</title>
+    <title>YourTube</title>
 
     <!-- Bootstrap core CSS -->
       {% include "html_reference.html" %}
@@ -21,26 +21,32 @@
   <body>
 
     <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse mb-4">
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <a class="navbar-brand" href="#">Top navbar</a>
+
+      <div class="btn-group">
+  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <i class="fa fa-cog fa-lg" aria-hidden="true"></i>&nbsp;Action
+  </button>
+  <ul class="dropdown-menu">
+    {% if not session['account']%}
+    <li><a href="/login"><i class="fa fa-sign-in fa-lg" aria-hidden="true"></i>&nbsp;login</a></li>
+    {%endif%}
+    {% if  session['account']%}
+    <h6 class="dropdown-item">{{session['account']}}</h6>
+    <div class="dropdown-divider"></div>
+    <li><a href="/favorite"><i class="fa fa-heart fa-lg" aria-hidden="true"></i>&nbsp;Favorite</a></li>
+    <li><a href="/logout"><i class="fa fa-sign-out fa-lg" aria-hidden="true"></i>&nbsp;logout</a></li>
+    <li role="separator" class="divider"></li>
+    {%endif%}
+  </ul>
+</div>
+
+
       <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" hr
-               ef="#">Disabled</a>
-          </li>
-        </ul>
         <form class="form-inline mt-2 mt-md-0" action="/results">
+          {%if session['account']%}
           <input class="form-control mr-sm-2" type="text" placeholder="Search" name="search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          {%endif%}
         </form>
       </div>
     </nav>

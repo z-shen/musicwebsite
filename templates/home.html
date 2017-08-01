@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content%}
+{% if session['account']%}
+
+<center> <h5>Hello {{session['account']}} !!</h5> </center>
+{%endif%}
+<center> <h5>Welcome Youtube download Site</h5> </center>
+{%endblock%}

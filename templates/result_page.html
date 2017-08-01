@@ -19,12 +19,26 @@
 
          <form action="/download" target="_blank">
 
-        <button type="submit" class="btn btn-warning" name="value" value="MP3&{{all_item.get('{}'.format(item))['link']}}">MP3</button>
+        <button type="submit" class="btn btn-warning btn-form" name="value" value="MP3&{{all_item.get('{}'.format(item))['link']}}"><i class="fa fa-download fa-lg" aria-hidden="true"></i>&nbsp;MP3</button>
 
-        <button type="submit" class="btn btn-danger" name="value" value="MP4&{{all_item.get('{}'.format(item))['link']}}">MP4</button>
+        <button type="submit" class="btn btn-danger btn-form" name="value" value="MP4&{{all_item.get('{}'.format(item))['link']}}"><i class="fa fa-download fa-lg" aria-hidden="true"></i>&nbsp;MP4</button>
      </form>
+       {% if session['account']%}
+        {% if "{}".format(all_item.get('{}'.format(item))['link']) in favorite_video%}
+        <button disable type="button" class="btn btn-warning btn-form"><i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i> Added</button>
+        {%endif%}
+         {% if "{}".format(all_item.get('{}'.format(item))['link']) not in favorite_video%}
+            <form action="/favorite" method="post">
+            <input type="hidden" name="url" value="{{url}}">
+            <input type="hidden" name="title" value="{{all_item.get('{}'.format(item))['title']}}">
+            <input type="hidden" name="link" value="{{all_item.get('{}'.format(item))['link']}}">
+            <input type="hidden" name="img" value="{{all_item.get('{}'.format(item))['image']}}">
+            <input type="hidden" name="time" value="{{all_item.get('{}'.format(item))['time']}}">
+            <button type="submit" class="btn btn-warning btn-form"><i class="fa fa-heart-o fa-lg" aria-hidden="true"></i> Favorite</button>
+            </form>
+            {%endif%}
 
-
+        {%endif%}
 
   </div>
 </div>
@@ -37,7 +51,10 @@
   <ul class="pagination  justify-content-center">
 
       <li class="page-item ">
-      <a class="page-link" href="{{all_page.get('{}'.format(int(current_page)-1))}}&current_page={{int(current_page)-1}}">Previous</a>
+      <a class="page-link" href="{{all_page.get('{}'.format(int(current_page)-1))}}&current_page={{int(current_page)-1}}">
+           <span aria-hidden="true">&laquo;</span>
+          <span class="sr-only">Previous</span>
+      </a>
           </li>
           {% for page in range(int(current_page)-3,int(current_page))%}
            {% if  '{}'.format(page) in all_page %}
@@ -51,7 +68,8 @@
     <li class="page-item active">
       <a class="page-link" href="#">{{current_page}}<span class="sr-only">(current)</span></a>
     </li>
-        {% for page in range(int(current_page)+1,int(current_page)-8)%}
+
+        {% for page in range(int(current_page)+1,int(current_page)+8)%}
         {% if  '{}'.format(page) in all_page %}
         <li class="page-item"><a class="page-link" href="{{all_page.get('{}'.format(page))}}&current_page={{page}}">{{page}}</a></li>
       {%endif%}
@@ -60,10 +78,17 @@
 
 
     <li class="page-item">
-      <a class="page-link" href="{{all_page.get('{}'.format(int(current_page)+1))}}&current_page={{int(current_page)+1}}">Next</a>
+      <a class="page-link" href="{{all_page.get('{}'.format(int(current_page)+1))}}&current_page={{int(current_page)+1}}">
+       <span aria-hidden="true">&raquo;</span>
+          <span class="sr-only">Next</span>
+      </a>
     </li>
   </ul>
 </nav>
+
+
+
+
 
 
 {%endblock%}
